@@ -53,3 +53,4 @@ Este é um projeto independente, criado para fins de estudo e (principalmente) u
 **One Piece** e seus elementos relacionados pertencem aos respectivos
 detentores de direitos. A aplicação não é afiliada ao Oda, à Toei
 Animation ou a qualquer entidade oficial da franquia.
+
