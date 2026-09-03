@@ -57,14 +57,13 @@ export default function Home() {
 
   return (
     <main className="waves relative min-h-screen overflow-hidden px-4 py-14 sm:py-20">
-      <div className="flex justify-between w-full px-12 opacity-20 absolute ">
+      <div className="flex justify-between items-center w-full px-12 opacity-20 absolute ">
         <Image
           src="/one-piece-logo.png"
           alt="One Piece"
           width={300}
           height={300}
-          // className="h-auto w-64 sm:w-80 absolute opacity-20 ml-130"
-          
+          className="hidden md:block"
         />
 
         <Image
@@ -72,7 +71,7 @@ export default function Home() {
           alt="One Piece"
           width={300}
           height={300}
-          // className="h-auto w-64 sm:w-80 absolute opacity-20 ml-130"
+          className="hidden md:block"
         />
       </div>
       <div className="relative mx-auto flex max-w-2xl flex-col items-center text-center">
@@ -81,8 +80,8 @@ export default function Home() {
         </h1>
         <p className="font-body mt-5 max-w-md text-balance text-sm text-parchment-200/80 sm:text-base">
           Diga em que episódio de One Piece você parou. Nosso Log Pose irá
-          calcular a distância até o episódio mais recente exibido em episódios,
-          horas e dias e ainda mostra a que altura do mangá isso equivale.
+          calcular a distância até o episódio mais recente exibido em numero de
+          episódios, horas e dias e a que altura do mangá isso equivale.
         </p>
 
         <form
@@ -96,6 +95,7 @@ export default function Home() {
             <span className="font-display pl-4 text-sm text-parchment-300/60">
               EP.
             </span>
+
             <input
               id="episode"
               name="episode"
@@ -111,7 +111,7 @@ export default function Home() {
           <button
             type="submit"
             disabled={state.status === "loading"}
-            className="font-display w-full shrink-0 bg-vest-500 px-6 py-3 text-sm font-bold tracking-wide text-parchment-100 transition-colors hover:bg-vest-600 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+            className="font-display w-full shrink-0 bg-vest-500 px-6 py-4 border-2 border-vest-500 text-sm font-bold tracking-wide text-parchment-100 transition-colors hover:bg-vest-600 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
           >
             {state.status === "loading" ? "Traçando rota…" : "Calcular"}
           </button>
@@ -142,19 +142,46 @@ function ResultPoster({ data }: { data: ProgressResult }) {
   }
 
   return (
-    <div className="mt-10 w-full animate-[fadeIn_0.4s_ease-out] rounded-sm border-2 border-straw-500/70 bg-parchment-100 text-ink shadow-poster">
-      <div className="border-b-2 border-dashed border-ink/20 px-6 py-6 sm:px-10 sm:py-8">
-        <p className="font-display text-xs tracking-widest text-vest-600">
-          FALTAM
-        </p>
-        <p className="font-pirate text-outline-ink text-7xl leading-none text-straw-600 sm:text-8xl">
-          {data.remainingEpisodes}
-        </p>
-        <p className="font-display text-sm text-ink/70">
-          episódio{data.remainingEpisodes === 1 ? "" : "s"} até o episódio{" "}
-          {data.latestEpisode}, o mais recente exibido
-        </p>
+    <div className="mt-10 w-full animate-[fadeIn_0.4s_ease-out] border-2 border-straw-500/70 bg-parchment-100 text-ink shadow-poster rounded-2xl">
+      <div className="flex items-center justify-between w-full pt-6 px-5">
+        <Image
+          src="/sanji.gif"
+          alt="Sanji"
+          width={20}
+          height={20}
+          className="w-[25%]"
+        />
+
+        <div>
+          <p className="font-display text-xs tracking-widest text-vest-600">
+            FALTAM
+          </p>
+
+          <p className="font-pirate text-outline-ink text-7xl leading-none text-straw-600 sm:text-8xl">
+            {data.remainingEpisodes}
+          </p>
+        </div>
+        <Image
+          src="/sanji.gif"
+          alt="Sanji"
+          width={20}
+          height={20}
+          className="w-[25%]"
+        />
       </div>
+
+      <p className="font-display text-sm text-ink/70">
+        episódio{data.remainingEpisodes === 1 ? "" : "s"} até o episódio{" "}
+        {data.latestEpisode}, o mais recente exibido
+      </p>
+
+      <Image
+        src="/straw-hat-pirates.gif"
+        alt="Straw Hat Pirates"
+        width={500}
+        height={400}
+        className="mx-auto mt-6 w-[80%] rounded-lg border-2 border-straw-500/70 shadow-lg sm:w-[60%]"
+      />
 
       <div className="grid gap-6 px-6 py-6 sm:grid-cols-2 sm:px-10 sm:py-8">
         <div>
@@ -166,7 +193,7 @@ function ResultPoster({ data }: { data: ProgressResult }) {
             <strong className="text-ink">
               {formatHours(data.totalHours)} horas
             </strong>{" "}
-            de exibição — ou seja,{" "}
+            de exibição, ou seja,{" "}
             <strong className="text-ink">
               {formatDays(data.totalDays)} dias
             </strong>{" "}
@@ -189,7 +216,7 @@ function ResultPoster({ data }: { data: ProgressResult }) {
               {data.mangaChaptersAhead} capítulos
             </strong>{" "}
             atrás do mais recente publicado (cap. {data.latestMangaChapter}).
-            Estimativa proporcional — a correspondência real varia por saga.
+            Estimativa proporcional, a correspondência real varia por saga.
           </p>
         </div>
       </div>
@@ -198,11 +225,12 @@ function ResultPoster({ data }: { data: ProgressResult }) {
         <h2 className="font-display text-xs tracking-widest text-vest-600">
           METAS DIÁRIAS
         </h2>
-        <ul className="font-body mt-3 grid gap-2 text-sm text-ink/80 sm:grid-cols-2">
+
+        <ul className="font-body mx-auto space-x-auto self-center mt-3 grid gap-4 text-sm text-ink/80 sm:grid-cols-2">
           {data.dailyGoals.map((goal) => (
             <li
               key={goal.episodesPerDay}
-              className="flex items-baseline justify-between gap-3 border-b border-ink/10 pb-2"
+              className="flex justify-around border-b border-ink/10 pb-2"
             >
               <span>
                 {goal.episodesPerDay} episódio
